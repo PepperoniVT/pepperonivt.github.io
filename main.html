@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./tmi.min.js"></script>
+<script>
+const channel = 'pepperonivt';
+
+const client = new tmi.Client({
+    connection: {
+        secure: true,
+        reconnect: true,
+    },
+    channels: [channel],
+});
+
+client.connect().then(() => {
+    console.log(`Listening for messages in ${channel}...`);
+});
+
+client.on('message', (wat, tags, message, self) => {
+    console.log(message);
+    console.log(tags);
+    $("#content").append('<video width="1920" height="1080" autoplay><source src="testalert_ymca.webm" type="video/mp4"></video>')
+});
+</script>
+<style>
+#content {
+    width: 1920px;
+    height: 1080px;
+    background-color: blue;
+}
+#content video {
+    position: absolute;
+}
+</style>
+</head>
+<body>
+
+<div id="content"></div>
+</body>
+</html>
